@@ -447,50 +447,54 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------------- SPLIT MEDIA PINNED FULLSCREEN SHOWCASE (Think Section) ---------------- */
+  /* ---------------- SPLIT MEDIA PINNED FULLSCREEN SHOWCASE (Think Section - >768px only) ---------------- */
   if (document.querySelector(".think-section") && window.ScrollTrigger) {
-    const thinkTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ".think-section",
-        start: "top top",
-        end: "+=120%",
-        pin: true,
-        pinSpacing: true,
-        scrub: 1,
-        anticipatePin: 1,
-        onEnter: () => {
-          header.classList.add("is-hidden");
-        },
-        onLeave: () => {
-          header.classList.remove("is-hidden");
-        },
-        onEnterBack: () => {
-          header.classList.add("is-hidden");
-        },
-        onLeaveBack: () => {
-          header.classList.remove("is-hidden");
-        },
-      },
-    });
+    const mm = gsap.matchMedia();
 
-    thinkTl
-      // Curtains slide left & right to reveal full showcase
-      .fromTo(".think-split-left", { xPercent: 0 }, { xPercent: -102, ease: "power2.inOut" }, 0)
-      .fromTo(".think-split-right", { xPercent: 0 }, { xPercent: 102, ease: "power2.inOut" }, 0)
-      // Card expands from slightly compact to full-scale screen filling presence
-      .fromTo(
-        ".think-cta-card",
-        { scale: 0.9, opacity: 0.3, y: 30 },
-        { scale: 1, opacity: 1, y: 0, ease: "power2.out" },
-        0
-      )
-      // Stagger pillar items into view
-      .fromTo(
-        ".think-pillars-grid .tp-card",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.08, ease: "power2.out" },
-        0.2
-      );
+    mm.add("(min-width: 768px)", () => {
+      const thinkTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".think-section",
+          start: "top top",
+          end: "+=120%",
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          anticipatePin: 1,
+          onEnter: () => {
+            header.classList.add("is-hidden");
+          },
+          onLeave: () => {
+            header.classList.remove("is-hidden");
+          },
+          onEnterBack: () => {
+            header.classList.add("is-hidden");
+          },
+          onLeaveBack: () => {
+            header.classList.remove("is-hidden");
+          },
+        },
+      });
+
+      thinkTl
+        // Curtains slide left & right to reveal full showcase
+        .fromTo(".think-split-left", { xPercent: 0 }, { xPercent: -102, ease: "power2.inOut" }, 0)
+        .fromTo(".think-split-right", { xPercent: 0 }, { xPercent: 102, ease: "power2.inOut" }, 0)
+        // Card expands from slightly compact to full-scale screen filling presence
+        .fromTo(
+          ".think-cta-card",
+          { scale: 0.9, opacity: 0.3, y: 30 },
+          { scale: 1, opacity: 1, y: 0, ease: "power2.out" },
+          0
+        )
+        // Stagger pillar items into view
+        .fromTo(
+          ".think-pillars-grid .tp-card",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.08, ease: "power2.out" },
+          0.2
+        );
+    });
   }
 
   /* Final CTA */

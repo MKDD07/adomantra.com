@@ -1777,7 +1777,46 @@ margin-right: 12px;
     gap: 16px;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+  .think-section {
+    height: auto !important;
+    min-height: auto !important;
+    padding: 60px 0 !important;
+    background: #f8fafc !important;
+    display: block !important;
+  }
+  .think-split-layer {
+    display: none !important;
+  }
+  .think-fullscreen-showcase {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    padding: 0 16px !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .think-cta-card {
+    opacity: 1 !important;
+    transform: none !important;
+    scale: 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 32px 18px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(18, 87, 162, 0.12) !important;
+    border-radius: 20px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  }
+  .think-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .think-pillars-grid .tp-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
   .think-cta-actions {
     flex-direction: column;
     width: 100%;
