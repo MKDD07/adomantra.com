@@ -1540,45 +1540,69 @@
       </button>
     </div>
     <div class="mbs-body">
-      <form id="mobileBottomSheetForm" class="inquiry-form">
-        <div class="form-group mb-3">
-          <label for="mbsName">Full Name *</label>
-          <input type="text" id="mbsName" required placeholder="e.g. Alex Morgan" />
-        </div>
-        <div class="row g-2 mb-3">
-          <div class="col-6 form-group">
-            <label for="mbsEmail">Work Email *</label>
-            <input type="email" id="mbsEmail" required placeholder="alex@company.com" />
+      <form id="mobileBottomSheetForm" class="hero-contact-form" novalidate>
+        <div class="hero-form-row">
+          <div class="form-group required">
+            <input type="text" id="mbsFullName" placeholder=" " required />
+            <label for="mbsFullName">Full Name</label>
+            <div class="invalid-feedback">Please enter your name.</div>
           </div>
-          <div class="col-6 form-group">
-            <label for="mbsPhone">Phone Number *</label>
-            <input type="tel" id="mbsPhone" required placeholder="+91 98765 43210" />
+          <div class="form-group required">
+            <input type="email" id="mbsWorkEmail" placeholder=" " required />
+            <label for="mbsWorkEmail">Work Email</label>
+            <div class="invalid-feedback">Please enter a valid email.</div>
           </div>
         </div>
-        <div class="form-group mb-3">
-          <label for="mbsServices">Service Required *</label>
-          <select id="mbsServices" required>
-            <option value="" disabled selected>Select Primary Objective</option>
-            <option>Search Engine Optimization (SEO)</option>
-            <option>Performance Marketing</option>
-            <option>CTV &amp; Rich Media</option>
-            <option>Programmatic Advertising</option>
-            <option>Social Media Strategy</option>
-            <option>Conversion Rate Optimization (CRO)</option>
-            <option>Analytics &amp; Attribution</option>
-            <option>Web &amp; App Development</option>
-            <option>Pay-Per-Click Advertising (PPC)</option>
+        <div class="hero-form-row">
+          <div class="form-group required">
+            <input type="tel" id="mbsPhone" placeholder=" " required />
+            <label for="mbsPhone">Phone Number</label>
+            <div class="invalid-feedback">Please enter your phone number.</div>
+          </div>
+          <div class="form-group required">
+            <input type="text" id="mbsCompany" placeholder=" " required />
+            <label for="mbsCompany">Company Name</label>
+            <div class="invalid-feedback">Please enter company name.</div>
+          </div>
+        </div>
+        <div class="form-group required">
+          <select id="mbsServicesRequired" required>
+            <option value="" disabled selected></option>
+            <option>CTV Advertising</option>
+            <option>Rich Media Innovation</option>
             <option>Media Planning &amp; Buying</option>
+            <option>Programmatic Advertising</option>
+            <option>Pay Per Click (PPC)</option>
+            <option>Content Marketing</option>
+            <option>Search Engine Optimization (SEO)</option>
+            <option>Website &amp; App Development</option>
+            <option>Social Media Marketing</option>
+            <option>Reputation Management</option>
+            <option>Influencer Marketing</option>
+            <option>Email Marketing</option>
+            <option>WhatsApp Marketing</option>
+            <option>Video Advertising</option>
+            <option>Geo Agency</option>
+            <option>Affiliate Marketing</option>
+            <option>Conversion Rate Optimization</option>
+            <option>Web Design</option>
+            <option>Content Writing</option>
+            <option>Web Development</option>
           </select>
+          <label for="mbsServicesRequired">Services Required</label>
+          <div class="invalid-feedback">Please select a service.</div>
         </div>
-        <div class="form-group mb-3">
-          <label for="mbsMessage">Brief Project Details</label>
-          <textarea id="mbsMessage" rows="2" placeholder="Tell us about your brand goals or target KPIs..."></textarea>
+        <div class="form-group required">
+          <textarea id="mbsRequirement" rows="2" placeholder=" " required></textarea>
+          <label for="mbsRequirement">Project Requirement</label>
+          <div class="invalid-feedback">Please tell us about your requirement.</div>
         </div>
-        <button type="submit" class="btn-header-cta w-100 justify-content-center">
-          <span>Request a Consultation</span>
-          <span class="cta-icon-circle"><i class="fa-solid fa-arrow-right"></i></span>
-        </button>
+        <div class="form-submit mt-2">
+          <button type="submit" class="btn-header-cta" style="width:100%; justify-content:center;">
+            <span>Request a Consultation</span>
+            <span class="cta-icon-circle"><i class="fa-solid fa-arrow-right"></i></span>
+          </button>
+        </div>
       </form>
     </div>
   </div>

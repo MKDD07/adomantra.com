@@ -302,6 +302,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   attachFormHandler("inquiryForm");
   attachFormHandler("heroContactForm");
+  attachFormHandler("mobileBottomSheetForm");
 
   /* ---------------- CASE STUDY MODAL INTERACTION ---------------- */
   const caseStudyData = {
@@ -545,11 +546,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const mbsForm = document.getElementById("mobileBottomSheetForm");
   if (mbsForm) {
-    mbsForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      alert("Thank you for reaching out! Our team will contact you shortly.");
-      closeMobileSheet();
-      mbsForm.reset();
+    mbsForm.addEventListener("submit", () => {
+      if (mbsForm.checkValidity()) {
+        setTimeout(closeMobileSheet, 1200);
+      }
     });
   }
 

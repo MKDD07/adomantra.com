@@ -2567,42 +2567,14 @@ margin-right: 12px;
   background: #e2e8f0;
   color: #0f172a;
 }
-.mbs-body form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.mbs-body .hero-contact-form {
+  margin-top: 4px;
 }
-.mbs-body .form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-bottom: 0 !important;
+.mbs-body .hero-contact-form .form-group {
+  margin-bottom: 20px;
 }
-.mbs-body .form-group label {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #334155;
-  letter-spacing: 0.01em;
-}
-.mbs-body input,
-.mbs-body select,
-.mbs-body textarea {
-  width: 100%;
-  padding: 11px 14px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  color: #0f172a;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.mbs-body input:focus,
-.mbs-body select:focus,
-.mbs-body textarea:focus {
-  outline: none;
-  background: #ffffff;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(18, 87, 162, 0.12);
+.mbs-body .hero-contact-form .hero-form-row {
+  margin-bottom: 0;
 }
 
 /* ============ RESPONSIVE ============ */
