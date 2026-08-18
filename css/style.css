@@ -2397,7 +2397,7 @@ margin-right: 12px;
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 991px) {
-  :root { --section-space: var(--section-space-mobile); --gutter: 24px; }
+  :root { --section-space: var(--section-space-mobile); --gutter: 16px; }
   .site-header .header-cta { display: none !important; }
   .hamburger { display: block; }
   .hero-grid, .problem-grid, .services-wrap, .capability-grid, .inquiry-grid { grid-template-columns: 1fr; }
