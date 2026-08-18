@@ -512,4 +512,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  /* ---------------- MOBILE SLIDE-UP BOTTOM SHEET MODAL (< 768px) ---------------- */
+  const mobileSheet = document.getElementById("mobileBottomSheet");
+  const openSheetBtn = document.getElementById("openMobileModalBtn");
+  const closeSheetBtn = document.getElementById("closeMobileModalBtn");
+  const sheetBackdrop = document.getElementById("mbsBackdrop");
+
+  function openMobileSheet() {
+    if (!mobileSheet) return;
+    mobileSheet.classList.add("is-active");
+    mobileSheet.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMobileSheet() {
+    if (!mobileSheet) return;
+    mobileSheet.classList.remove("is-active");
+    mobileSheet.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  if (openSheetBtn) openSheetBtn.addEventListener("click", openMobileSheet);
+  if (closeSheetBtn) closeSheetBtn.addEventListener("click", closeMobileSheet);
+  if (sheetBackdrop) sheetBackdrop.addEventListener("click", closeMobileSheet);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileSheet && mobileSheet.classList.contains("is-active")) {
+      closeMobileSheet();
+    }
+  });
+
+  const mbsForm = document.getElementById("mobileBottomSheetForm");
+  if (mbsForm) {
+    mbsForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Thank you for reaching out! Our team will contact you shortly.");
+      closeMobileSheet();
+      mbsForm.reset();
+    });
+  }
 });

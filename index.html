@@ -111,8 +111,12 @@
   </div>
 </div>
 
-<!-- Mobile Floating CTA Overlay (Right Bottom 60px) -->
+<!-- Mobile Floating CTA Overlay -->
 <div class="mobile-cta-overlay">
+  <button type="button" class="mobile-cta-modal-btn" id="openMobileModalBtn" aria-label="Open Inquiry Form" title="Get a Quote">
+    <i class="fa-solid fa-paper-plane"></i>
+    <span>Enquire</span>
+  </button>
   <a href="tel:+919650706427" class="mobile-cta-phone" aria-label="Call +91 9650706427" title="Call +91 9650706427">
     <i class="fa-solid fa-phone"></i>
   </a>
@@ -1520,6 +1524,65 @@
     <span>adomantra.com — Strategy-Led Digital Marketing Agency.</span>
   </div>
 </footer>
+
+<!-- Mobile Slide-Up Modal Sheet (< 768px) -->
+<div class="mobile-bottom-sheet" id="mobileBottomSheet" aria-hidden="true">
+  <div class="mbs-backdrop" id="mbsBackdrop"></div>
+  <div class="mbs-dialog">
+    <div class="mbs-handle"></div>
+    <div class="mbs-header">
+      <div class="mbs-title-wrap">
+        <h3 class="mbs-title">Let’s Accelerate Your Growth</h3>
+        <p class="mbs-subtitle">Speak with an Adomantra growth strategist in &lt; 24h.</p>
+      </div>
+      <button type="button" class="mbs-close-btn" id="closeMobileModalBtn" aria-label="Close form">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="mbs-body">
+      <form id="mobileBottomSheetForm" class="inquiry-form">
+        <div class="form-group mb-3">
+          <label for="mbsName">Full Name *</label>
+          <input type="text" id="mbsName" required placeholder="e.g. Alex Morgan" />
+        </div>
+        <div class="row g-2 mb-3">
+          <div class="col-6 form-group">
+            <label for="mbsEmail">Work Email *</label>
+            <input type="email" id="mbsEmail" required placeholder="alex@company.com" />
+          </div>
+          <div class="col-6 form-group">
+            <label for="mbsPhone">Phone Number *</label>
+            <input type="tel" id="mbsPhone" required placeholder="+91 98765 43210" />
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="mbsServices">Service Required *</label>
+          <select id="mbsServices" required>
+            <option value="" disabled selected>Select Primary Objective</option>
+            <option>Search Engine Optimization (SEO)</option>
+            <option>Performance Marketing</option>
+            <option>CTV &amp; Rich Media</option>
+            <option>Programmatic Advertising</option>
+            <option>Social Media Strategy</option>
+            <option>Conversion Rate Optimization (CRO)</option>
+            <option>Analytics &amp; Attribution</option>
+            <option>Web &amp; App Development</option>
+            <option>Pay-Per-Click Advertising (PPC)</option>
+            <option>Media Planning &amp; Buying</option>
+          </select>
+        </div>
+        <div class="form-group mb-3">
+          <label for="mbsMessage">Brief Project Details</label>
+          <textarea id="mbsMessage" rows="2" placeholder="Tell us about your brand goals or target KPIs..."></textarea>
+        </div>
+        <button type="submit" class="btn-header-cta w-100 justify-content-center">
+          <span>Request a Consultation</span>
+          <span class="cta-icon-circle"><i class="fa-solid fa-arrow-right"></i></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

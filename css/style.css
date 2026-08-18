@@ -2434,6 +2434,123 @@ margin-right: 12px;
   transform: scale(0.92);
 }
 
+/* Mobile CTA Modal Trigger Button (< 768px only) */
+.mobile-cta-modal-btn {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .mobile-cta-modal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--color-primary);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(18, 87, 162, 0.45);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .mobile-cta-modal-btn i {
+    font-size: 0.9rem;
+  }
+  .mobile-cta-modal-btn:active {
+    transform: scale(0.94);
+  }
+}
+
+/* ============ MOBILE SLIDE-UP BOTTOM SHEET MODAL ============ */
+.mobile-bottom-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.35s, opacity 0.35s ease;
+}
+.mobile-bottom-sheet.is-active {
+  visibility: visible;
+  opacity: 1;
+}
+.mbs-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 28, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.mbs-dialog {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  padding: 12px 20px 28px;
+  max-height: 88vh;
+  overflow-y: auto;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(100%);
+  transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.mobile-bottom-sheet.is-active .mbs-dialog {
+  transform: translateY(0);
+}
+.mbs-handle {
+  width: 44px;
+  height: 5px;
+  background: #cbd5e1;
+  border-radius: 10px;
+  margin: 4px auto 14px;
+}
+.mbs-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.mbs-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.mbs-subtitle {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 3px 0 0;
+}
+.mbs-close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  font-size: 1.1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, color 0.2s;
+}
+.mbs-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 991px) {
   :root { --section-space: var(--section-space-mobile); --gutter: 16px; }
