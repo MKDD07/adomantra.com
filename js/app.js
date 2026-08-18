@@ -552,4 +552,35 @@ document.addEventListener("DOMContentLoaded", () => {
       mbsForm.reset();
     });
   }
+
+  /* ---------------- HIDE/SHOW MOBILE ENQUIRE BTN BASED ON SCROLL POSITION ---------------- */
+  if (openSheetBtn) {
+    const updateEnquireBtnVisibility = () => {
+      if (window.innerWidth >= 768) return;
+
+      const heroEl = document.querySelector(".hero");
+      const footerEl = document.querySelector(".site-footer");
+      const scrollY = window.scrollY || window.pageYOffset;
+      const heroBottom = heroEl ? heroEl.offsetTop + heroEl.offsetHeight - 120 : 450;
+
+      let nearFooter = false;
+      if (footerEl) {
+        const footerTop = footerEl.getBoundingClientRect().top;
+        if (footerTop < window.innerHeight + 80) {
+          nearFooter = true;
+        }
+      }
+
+      // Hide if near hero/header OR near footer
+      if (scrollY > heroBottom && !nearFooter) {
+        openSheetBtn.classList.add("is-visible");
+      } else {
+        openSheetBtn.classList.remove("is-visible");
+      }
+    };
+
+    window.addEventListener("scroll", updateEnquireBtnVisibility, { passive: true });
+    window.addEventListener("resize", updateEnquireBtnVisibility, { passive: true });
+    updateEnquireBtnVisibility();
+  }
 });
