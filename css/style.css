@@ -2482,6 +2482,7 @@ margin-right: 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.35s, opacity 0.35s ease;
@@ -2494,52 +2495,58 @@ margin-right: 12px;
   position: absolute;
   inset: 0;
   background: rgba(8, 14, 28, 0.65);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 .mbs-dialog {
   position: relative;
   z-index: 1;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
   background: #ffffff;
-  border-top-left-radius: 24px;
-  border-top-right-radius: 24px;
-  padding: 12px 20px 28px;
-  max-height: 88vh;
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+  padding: 16px 24px 32px;
+  max-height: 85vh;
   overflow-y: auto;
-  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 -12px 36px rgba(0, 0, 0, 0.25);
   transform: translateY(100%);
   transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 .mobile-bottom-sheet.is-active .mbs-dialog {
   transform: translateY(0);
 }
 .mbs-handle {
-  width: 44px;
+  width: 48px;
   height: 5px;
   background: #cbd5e1;
   border-radius: 10px;
-  margin: 4px auto 14px;
+  margin: 2px auto 6px;
+  flex-shrink: 0;
 }
 .mbs-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  gap: 16px;
+  padding-bottom: 14px;
   border-bottom: 1px solid #f1f5f9;
 }
 .mbs-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #0f172a;
   margin: 0;
   letter-spacing: -0.02em;
 }
 .mbs-subtitle {
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: #64748b;
-  margin: 3px 0 0;
+  margin: 4px 0 0;
 }
 .mbs-close-btn {
   width: 36px;
@@ -2559,6 +2566,43 @@ margin-right: 12px;
 .mbs-close-btn:hover {
   background: #e2e8f0;
   color: #0f172a;
+}
+.mbs-body form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.mbs-body .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 0 !important;
+}
+.mbs-body .form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  letter-spacing: 0.01em;
+}
+.mbs-body input,
+.mbs-body select,
+.mbs-body textarea {
+  width: 100%;
+  padding: 11px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #0f172a;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mbs-body input:focus,
+.mbs-body select:focus,
+.mbs-body textarea:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(18, 87, 162, 0.12);
 }
 
 /* ============ RESPONSIVE ============ */
