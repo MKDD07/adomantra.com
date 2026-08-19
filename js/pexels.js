@@ -30,39 +30,54 @@ async function fetchPexelsImages(query, perPage = 3, quality = "large") {
   const cacheKey = `img:${query}:${perPage}:${quality}`;
   if (pexelsCache.has(cacheKey)) return pexelsCache.get(cacheKey);
 
-  try {
-    let reqUrl = "";
-    let headers = {};
+  let data = null;
 
-    if (PEXELS_WORKER_URL) {
-      reqUrl = `${PEXELS_WORKER_URL}?type=photos&query=${encodeURIComponent(query)}&per_page=${perPage}&orientation=landscape`;
-    } else if (PEXELS_API_KEY) {
-      reqUrl = `${PEXELS_ENDPOINT_PHOTOS}?query=${encodeURIComponent(query)}&per_page=${perPage}&orientation=landscape`;
-      headers = { Authorization: PEXELS_API_KEY };
-    } else {
-      return [{ url: FALLBACK_IMAGES.default, lowUrl: FALLBACK_IMAGES.default, alt: query, photographer: "" }];
-    }
-
-    const res = await fetch(reqUrl, { headers });
-    if (!res.ok) throw new Error(`Pexels photo request failed: ${res.status}`);
-    const data = await res.json();
-    const results = (data.photos || []).map((p) => {
-      // Default to medium/800px max (Pexels medium is ~800px width with dpr)
-      let selectedUrl = p.src.medium || p.src.large || p.src.small;
-      
-      if (quality === "medium" || quality === "card") {
-        selectedUrl = p.src.medium || p.src.large;
-      } else if (quality === "small") {
-        selectedUrl = p.src.small || p.src.tiny;
-      } else if (quality === "large") {
-        selectedUrl = p.src.large;
-      } else if (quality === "large2x") {
-        selectedUrl = p.src.large2x || p.src.large;
-      } else if (quality === "original") {
-        selectedUrl = p.src.original || p.src.large2x;
-      } else if (p.src[quality]) {
-        selectedUrl = p.src[quality];
+  // Try Cloudflare Worker first if available
+  if (PEXELS_WORKER_URL) {
+    try {
+      const workerUrl = `${PEXELS_WORKER_URL}?type=photos&query=${encodeURIComponent(query)}&per_page=${perPage}&orientation=landscape`;
+      const res = await fetch(workerUrl);
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
+        data = await res.json();
       }
+    } catch (e) {
+      console.warn("Worker proxy error, attempting direct fetch:", e.message);
+    }
+  }
+
+  // Fallback to direct API if worker failed or blocked
+  if (!data && PEXELS_API_KEY && PEXELS_API_KEY !== "YOUR_PEXELS_API_KEY") {
+    try {
+      const res = await fetch(
+        `${PEXELS_ENDPOINT_PHOTOS}?query=${encodeURIComponent(query)}&per_page=${perPage}&orientation=landscape`,
+        { headers: { Authorization: PEXELS_API_KEY } }
+      );
+      if (res.ok) data = await res.json();
+    } catch (e) {
+      console.warn("Direct Pexels fetch error:", e.message);
+    }
+  }
+
+  if (!data || !data.photos || !data.photos.length) {
+    return [{ url: FALLBACK_IMAGES.default, lowUrl: FALLBACK_IMAGES.default, alt: query, photographer: "" }];
+  }
+
+  const results = (data.photos || []).map((p) => {
+    let selectedUrl = p.src.medium || p.src.large || p.src.small;
+    if (quality === "medium" || quality === "card") {
+      selectedUrl = p.src.medium || p.src.large;
+    } else if (quality === "small") {
+      selectedUrl = p.src.small || p.src.tiny;
+    } else if (quality === "large") {
+      selectedUrl = p.src.large;
+    } else if (quality === "large2x") {
+      selectedUrl = p.src.large2x || p.src.large;
+    } else if (quality === "original") {
+      selectedUrl = p.src.original || p.src.large2x;
+    } else if (p.src[quality]) {
+      selectedUrl = p.src[quality];
+    }
 
       return {
         url: selectedUrl,
@@ -90,23 +105,35 @@ async function fetchPexelsVideos(query, quality = "hd") {
   const cacheKey = `vid:${query}:${quality}`;
   if (pexelsCache.has(cacheKey)) return pexelsCache.get(cacheKey);
 
-  try {
-    let reqUrl = "";
-    let headers = {};
+  let data = null;
 
-    if (PEXELS_WORKER_URL) {
-      reqUrl = `${PEXELS_WORKER_URL}?type=videos&query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
-    } else if (PEXELS_API_KEY) {
-      reqUrl = `${PEXELS_ENDPOINT_VIDEOS}?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
-      headers = { Authorization: PEXELS_API_KEY };
-    } else {
-      return null;
+  if (PEXELS_WORKER_URL) {
+    try {
+      const workerUrl = `${PEXELS_WORKER_URL}?type=videos&query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
+      const res = await fetch(workerUrl);
+      const contentType = res.headers.get("content-type") || "";
+      if (res.ok && contentType.includes("application/json")) {
+        data = await res.json();
+      }
+    } catch (e) {
+      console.warn("Worker video proxy error, attempting direct fetch:", e.message);
     }
+  }
 
-    const res = await fetch(reqUrl, { headers });
-    if (!res.ok) throw new Error(`Pexels video request failed: ${res.status}`);
-    const data = await res.json();
-    const video = (data.videos || [])[0];
+  if (!data && PEXELS_API_KEY && PEXELS_API_KEY !== "YOUR_PEXELS_API_KEY") {
+    try {
+      const res = await fetch(
+        `${PEXELS_ENDPOINT_VIDEOS}?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`,
+        { headers: { Authorization: PEXELS_API_KEY } }
+      );
+      if (res.ok) data = await res.json();
+    } catch (e) {
+      console.warn("Direct Pexels video fetch error:", e.message);
+    }
+  }
+
+  try {
+    const video = (data && data.videos || [])[0];
     if (!video || !video.video_files || !video.video_files.length) return null;
 
     // Filter and sort video files so maximum resolution is 1920 (Full HD)
