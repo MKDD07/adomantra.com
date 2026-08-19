@@ -1,97 +1,97 @@
 {
   "services": {
     "ctv-advertising": {
-      "query": "smart tv connected television living room streaming",
+      "query": "person watching smart TV streaming living room",
       "src": ""
     },
     "rich-media-innovations": {
-      "query": "interactive 3d creative design animation",
+      "query": "3D animation digital design studio creative",
       "src": ""
     },
     "media-planning-buying": {
-      "query": "media planning strategy billboard advertising",
+      "query": "advertising billboard city media strategy",
       "src": ""
     },
     "programmatic-advertising": {
-      "query": "digital programmatic advertising technology",
+      "query": "digital advertising technology data dashboard",
       "src": ""
     },
     "pay-per-click": {
-      "query": "pay per click google ads search marketing dashboard",
+      "query": "Google Ads dashboard analytics search marketing",
       "src": ""
     },
     "content-marketing": {
-      "query": "content marketing copywriting storytelling creative",
+      "query": "content writer working laptop creative workspace",
       "src": ""
     },
     "search-engine-optimization": {
-      "query": "SEO search engine optimization analytics google",
+      "query": "SEO analytics dashboard search engine growth chart",
       "src": ""
     },
     "website-app-development": {
-      "query": "software coding app development smartphone screen",
+      "query": "developer coding app screen laptop programming",
       "src": ""
     },
     "social-media": {
-      "query": "social media marketing influencer community",
+      "query": "person using laptop social media marketing home",
       "src": ""
     },
     "reputation-management": {
-      "query": "corporate trust reputation PR business",
+      "query": "business handshake trust corporate professional meeting",
       "src": ""
     },
     "influencer-marketing": {
-      "query": "influencer creator content creator studio recording",
+      "query": "content creator filming studio camera setup",
       "src": ""
     },
     "email-marketing": {
-      "query": "email marketing newsletter laptop inbox automation",
+      "query": "email newsletter inbox laptop marketing automation",
       "src": ""
     },
     "whatsapp-marketing": {
-      "query": "mobile chat messaging phone conversational communication",
+      "query": "person messaging smartphone chat communication",
       "src": ""
     }
   },
   "industries": {
     "healthcare": {
-      "query": "modern hospital doctor medical healthcare technology",
+      "query": "doctor hospital modern medical technology",
       "src": ""
     },
     "real-estate": {
-      "query": "luxury real estate architecture modern building apartment",
+      "query": "modern luxury apartment building architecture",
       "src": ""
     },
     "automobile": {
-      "query": "luxury automobile electric car showroom driving",
+      "query": "luxury electric car showroom driving road",
       "src": ""
     },
     "travel-hospitality": {
-      "query": "resort luxury hotel travel vacation beach hospitality",
+      "query": "luxury resort beach vacation hotel travel",
       "src": ""
     },
     "fmcg-fmcd": {
-      "query": "supermarket grocery products retail consumer goods",
+      "query": "supermarket grocery aisle consumer products retail",
       "src": ""
     },
     "education": {
-      "query": "university students classroom graduation learning education",
+      "query": "university students campus graduation classroom",
       "src": ""
     },
     "ecommerce": {
-      "query": "ecommerce shopping online package delivery retail cart",
+      "query": "online shopping package delivery box retail",
       "src": ""
     },
     "security-services": {
-      "query": "digital cybersecurity network security data protection tech",
+      "query": "cybersecurity network data protection technology",
       "src": ""
     },
     "information-technology": {
-      "query": "technology server room software engineer data center",
+      "query": "data center server room software engineer",
       "src": ""
     },
     "banking-services": {
-      "query": "finance banking fintech investment skyscraper economy",
+      "query": "fintech banking finance skyscraper investment",
       "src": ""
     }
   }
