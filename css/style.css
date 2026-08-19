@@ -581,7 +581,7 @@ html.lenis, html.lenis body {
   position: relative;
   z-index: 2;
   display: grid; 
-  grid-template-columns: 1.15fr 0.95fr; 
+  grid-template-columns: 1.15fr 0.75fr; 
   gap: 80px; 
   align-items: center;
   width: 100%;
