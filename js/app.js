@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Swiper(".case-study-swiper", {
       slidesPerView: 1.2,
       spaceBetween: 18,
-      loop: true,
+      loop: false,
       navigation: {
         nextEl: ".case-study-swiper-next",
         prevEl: ".case-study-swiper-prev",
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Swiper(".clients-swiper-row1", {
       slidesPerView: "auto",
       spaceBetween: 12,
-      loop: true,
+      loop: false,
       autoplay: {
         delay: 1,
         disableOnInteraction: false,
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new Swiper(".clients-swiper-row2", {
       slidesPerView: "auto",
       spaceBetween: 12,
-      loop: true,
+      loop: false,
       autoplay: {
         delay: 1,
         disableOnInteraction: false,
