@@ -111,10 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
         nextEl: ".services-swiper-next",
         prevEl: ".services-swiper-prev",
       },
-      pagination: {
-        el: ".services-swiper-pagination",
-        clickable: true,
-      },
       autoplay: {
         delay: 4000,
         disableOnInteraction: false,
@@ -138,10 +134,6 @@ document.addEventListener("DOMContentLoaded", () => {
       navigation: {
         nextEl: ".industries-swiper-next",
         prevEl: ".industries-swiper-prev",
-      },
-      pagination: {
-        el: ".industries-swiper-pagination",
-        clickable: true,
       },
       autoplay: {
         delay: 4500,
@@ -243,8 +235,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  /* ---------------- GENERIC PEXELS IMAGE LOADER ---------------- */
-  document.querySelectorAll("[data-pexels-query]").forEach((el) => {
+  /* ---------------- GENERIC PEXELS IMAGE LOADER & JSON DATA LOADER ---------------- */
+  if (window.PexelsAPI && window.PexelsAPI.initPexelsJsonData) {
+    window.PexelsAPI.initPexelsJsonData();
+  }
+
+  document.querySelectorAll("[data-pexels-query]:not([data-pexels-key])").forEach((el) => {
     const query = el.getAttribute("data-pexels-query");
     if (el.tagName === "IMG") {
       window.PexelsAPI.applyImageToElement(el, query);
@@ -308,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const caseStudyData = {
     "malabar-jewellery": {
       badge: "Jewellery & Luxury Retail",
-      title: "Malabar Jewellery: Increasing Sales & Omnichannel Footfall",
+      title: "Malabar Jewellery: Turning Festive Buzz Into Sales: How Malabar Jewellery Scaled Sales Across Every Channel",
       image: "assets/malabar-jewellery.png",
       statVal1: "+340%",
       statLbl1: "High-Intent Consultation Leads",
@@ -322,7 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     "food-delivery": {
       badge: "FoodTech & Quick Commerce",
-      title: "Food Delivery App: Creating Brand Awareness & User Acquisition",
+      title: "Food Delivery App: From Unknown to Unmissable: Scaling a Food Delivery App to 2.4M+ Installs",
       image: "assets/food-delivery.png",
       statVal1: "2.4M+",
       statLbl1: "Verified App Installations",
@@ -336,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     "ola-app-amp-play": {
       badge: "Mobility & Ride Hailing",
-      title: "Ola App & Play: Driving Screen Engagement & App Installs",
+      title: "Ola App & Play: Driving Millions of Riders to Engage, Not Just Install",
       image: "assets/ola-app-play.png",
       statVal1: "5.8M+",
       statLbl1: "Active In-Transit Riders Reached",
@@ -350,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     "real-estate": {
       badge: "Luxury Real Estate",
-      title: "Case Study – Real Estate: HNI Inquiries & Property Sales",
+      title: "Real Estate (Luxury): How We Turned HNI Interest Into Verified Site Visits",
       image: "assets/real-estate.png",
       statVal1: "₹65Cr+",
       statLbl1: "Closed Property Inventory",
@@ -446,6 +442,39 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "power2.out",
       scrollTrigger: { trigger: ".metrics-bar", start: "top 88%" },
     });
+  }
+
+  /* ---------------- WHY US - STICKY SCROLLING PROBLEM LIST ---------------- */
+  if (document.querySelector("#why-us") && window.ScrollTrigger) {
+    const whyUsSection = document.querySelector("#why-us");
+    const problemList = document.querySelector(".problem-list");
+    const problemWrap = document.querySelector(".problem-list-wrap");
+    
+    if (problemList && problemWrap) {
+      const mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 768px)", () => {
+        // Calculate the total distance to scroll so all pills move up into view
+        const getScrollDistance = () => {
+          return problemList.scrollHeight - problemWrap.clientHeight + 16;
+        };
+
+        gsap.to(problemList, {
+          y: () => -getScrollDistance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: whyUsSection,
+            start: "top 12%",
+            end: () => `+=${Math.max(600, getScrollDistance() * 2)}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          }
+        });
+      });
+    }
   }
 
   /* ---------------- SPLIT MEDIA PINNED FULLSCREEN SHOWCASE (Think Section - >768px only) ---------------- */

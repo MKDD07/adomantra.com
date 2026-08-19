@@ -61,6 +61,7 @@ p { font-size: var(--p-size); font-weight: var(--weight-medium); line-height: 1.
 .section-surface { background: var(--color-surface); }
 
 .num { font-variant-numeric: tabular-nums; font-weight: var(--weight-semibold); color: var(--color-primary); }
+.text-primary { color: var(--color-primary); }
 
 /* Buttons / links */
 .btn-arrow {
@@ -126,7 +127,10 @@ p { font-size: var(--p-size); font-weight: var(--weight-medium); line-height: 1.
   opacity: 0;
 }
 .site-header .container { display: flex; align-items: center; justify-content: space-between; }
-
+.primary-color
+{
+  color: var(--color-primary);
+}
 .logo {
   display: inline-flex;
   align-items: center;
@@ -884,8 +888,12 @@ html.lenis, html.lenis body {
 }
 
 /* ============ PROBLEM ============ */
-.problem-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 80px; align-items: center; }
+.problem-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 80px; align-items: flex-start; }
 .problem-statement h2 { max-width: 520px; }
+.problem-statement {
+  position: sticky;
+  top: 120px;
+}
 .problem-subtext {
   margin-top: 24px;
   font-size: 1.1rem;
@@ -917,16 +925,32 @@ html.lenis, html.lenis body {
   max-width: 260px;
 }
 
+.problem-list-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 480px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+  padding: 12px 6px;
+}
+
 .problem-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  will-change: transform;
 }
 .problem-pill {
   display: flex; 
   align-items: center; 
   justify-content: space-between;
   gap: 20px;
+  min-height: 76px;
+  box-sizing: border-box;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 5px, rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
@@ -934,7 +958,7 @@ html.lenis, html.lenis body {
   border-radius: 500px;
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -2033,8 +2057,7 @@ margin-right: 12px;
 .contact-social a:hover { background: var(--color-black); color: var(--color-white); }
 
 /* ============ FAQ ============ */
-.accordion-item { background: transparent; border: none; border-top: 1px solid var(--color-border); }
-.accordion-item:last-child { border-bottom: 1px solid var(--color-border); }
+.accordion-item { background: transparent; border: none; border-bottom: 1px solid var(--color-border); }
 .accordion-button {
   background: transparent; box-shadow: none; font-size: 1.15rem; font-weight: var(--weight-medium);
   color: var(--color-black); padding: 26px 4px;

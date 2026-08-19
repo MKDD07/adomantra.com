@@ -3,9 +3,11 @@
    Images: Progressive (tiny blur -> max 800px crisp)
    Videos: Max 1920px (Full HD), starts responsive
    ============================================================ */
-const PEXLES_A = "bPSCecg8osP489H4AQexmZwG3OXpL1DUN";
-const PEXELS_B = "jhrX1hafiSE8IapAM9EgZOu";
-const PEXELS_API_KEY = PEXLES_A + PEXELS_B;
+// Read API key from environment configuration (js/config.js or window.ENV)
+const PEXELS_API_KEY =
+  (typeof window !== "undefined" && window.ENV && window.ENV.PEXELS_API_KEY)
+    ? window.ENV.PEXELS_API_KEY
+    : "";
 
 const PEXELS_ENDPOINT_PHOTOS = "https://api.pexels.com/v1/search";
 const PEXELS_ENDPOINT_VIDEOS = "https://api.pexels.com/videos/search";
@@ -21,7 +23,7 @@ const pexelsCache = new Map();
 /**
  * Fetch photo objects with both low-res (preview) and target (max 800px / medium / custom) quality.
  */
-async function fetchPexelsImages(query, perPage = 3, quality = "medium") {
+async function fetchPexelsImages(query, perPage = 3, quality = "large") {
   const cacheKey = `img:${query}:${perPage}:${quality}`;
   if (pexelsCache.has(cacheKey)) return pexelsCache.get(cacheKey);
 
@@ -143,7 +145,7 @@ function applyImageToElement(imgEl, query, quality = "medium") {
     if (!results || !results[0]) return;
     const { url, lowUrl, alt } = results[0];
 
-    imgEl.alt = alt;
+    if (!imgEl.alt) imgEl.alt = alt;
 
     // Step 1: Set instant lightweight low-res preview
     if (lowUrl && lowUrl !== url && !imgEl.src) {
@@ -165,4 +167,46 @@ function applyImageToElement(imgEl, query, quality = "medium") {
   });
 }
 
-window.PexelsAPI = { fetchPexelsImages, fetchPexelsVideos, applyImageToElement, FALLBACK_VIDEO_POSTER };
+/**
+ * Load images from data/pexels-data.json for elements with data-pexels-key
+ */
+async function initPexelsJsonData() {
+  const elements = document.querySelectorAll("[data-pexels-key]");
+  if (!elements.length) return;
+
+  let jsonData = null;
+  try {
+    const res = await fetch("data/pexels-data.json");
+    if (res.ok) {
+      jsonData = await res.json();
+    }
+  } catch (err) {
+    console.warn("Could not load data/pexels-data.json:", err);
+  }
+
+  elements.forEach((el) => {
+    const keyPath = el.getAttribute("data-pexels-key"); // e.g. "services.ctv-advertising" or "industries.healthcare"
+    let itemData = null;
+
+    if (jsonData && keyPath) {
+      const parts = keyPath.split(".");
+      itemData = parts.reduce((acc, p) => (acc ? acc[p] : null), jsonData);
+    }
+
+    if (el.tagName === "IMG") {
+      if (itemData && itemData.src) {
+        // Direct image URL provided in JSON
+        el.src = itemData.src;
+      } else if (itemData && itemData.query) {
+        // Query provided in JSON
+        applyImageToElement(el, itemData.query);
+      } else {
+        // Fallback to inline query attribute if present
+        const inlineQuery = el.getAttribute("data-pexels-query");
+        if (inlineQuery) applyImageToElement(el, inlineQuery);
+      }
+    }
+  });
+}
+
+window.PexelsAPI = { fetchPexelsImages, fetchPexelsVideos, applyImageToElement, initPexelsJsonData, FALLBACK_VIDEO_POSTER };
