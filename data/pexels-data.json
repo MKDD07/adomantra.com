@@ -1,97 +1,97 @@
 {
   "services": {
     "ctv-advertising": {
-      "query": "person watching smart TV streaming living room",
+      "query": "connected TV advertising smart TV streaming ads living room digital marketing",
       "src": ""
     },
     "rich-media-innovations": {
-      "query": "A smartphone displaying a blood donation drive advertisement held by a person",
+      "query": "interactive rich media digital advertising smartphone immersive ad experience",
       "src": ""
     },
     "media-planning-buying": {
-      "query": "advertising billboard city media strategy",
+      "query": "digital media planning campaign strategy advertising analytics dashboard",
       "src": ""
     },
     "programmatic-advertising": {
-      "query": "digital advertising technology data dashboard",
+      "query": "programmatic advertising AI audience targeting digital ad platform dashboard",
       "src": ""
     },
     "pay-per-click": {
-      "query": "Google Ads dashboard analytics search marketing",
+      "query": "Google Ads PPC campaign search engine marketing analytics dashboard",
       "src": ""
     },
     "content-marketing": {
-      "query": "content writer working laptop creative workspace",
+      "query": "content marketing strategy creative copywriting laptop digital campaign",
       "src": ""
     },
     "search-engine-optimization": {
-      "query": "SEO analytics dashboard search engine growth chart",
+      "query": "SEO search engine optimization analytics website ranking growth dashboard",
       "src": ""
     },
     "website-app-development": {
-      "query": "developer coding app screen laptop programming",
+      "query": "website and mobile app development UI UX coding software developer workspace",
       "src": ""
     },
     "social-media": {
-      "query": "person using laptop social media marketing home",
+      "query": "social media marketing content creation digital advertising smartphone laptop",
       "src": ""
     },
     "reputation-management": {
-      "query": "business handshake trust corporate professional meeting",
+      "query": "online reputation management customer reviews brand trust digital business",
       "src": ""
     },
     "influencer-marketing": {
-      "query": "content creator filming studio camera setup",
+      "query": "influencer marketing content creator social media video production studio",
       "src": ""
     },
     "email-marketing": {
-      "query": "email newsletter inbox laptop marketing automation",
+      "query": "email marketing automation newsletter campaign CRM analytics laptop",
       "src": ""
     },
     "whatsapp-marketing": {
-      "query": "person messaging smartphone chat communication",
+      "query": "WhatsApp marketing business messaging customer engagement smartphone communication",
       "src": ""
     }
   },
   "industries": {
     "healthcare": {
-      "query": "doctor hospital modern medical technology",
+      "query": "healthcare digital advertising modern hospital doctor medical technology marketing",
       "src": ""
     },
     "real-estate": {
-      "query": "modern luxury apartment building architecture",
+      "query": "real estate digital marketing luxury residential property architecture",
       "src": ""
     },
     "automobile": {
-      "query": "luxury electric car showroom driving road",
+      "query": "automobile digital advertising luxury electric vehicle showroom automotive marketing",
       "src": ""
     },
     "travel-hospitality": {
-      "query": "luxury resort beach vacation hotel travel",
+      "query": "travel hospitality digital marketing luxury resort hotel vacation tourism",
       "src": ""
     },
     "fmcg-fmcd": {
-      "query": "supermarket grocery aisle consumer products retail",
+      "query": "FMCG consumer products retail supermarket shopping digital advertising",
       "src": ""
     },
     "education": {
-      "query": "university students campus graduation classroom",
+      "query": "education digital marketing online learning university students classroom technology",
       "src": ""
     },
     "ecommerce": {
-      "query": "online shopping package delivery box retail",
+      "query": "ecommerce online shopping digital retail package delivery marketing",
       "src": ""
     },
     "security-services": {
-      "query": "cybersecurity network data protection technology",
+      "query": "cybersecurity digital security data protection technology network business",
       "src": ""
     },
     "information-technology": {
-      "query": "data center server room software engineer",
+      "query": "information technology software development cloud computing data center innovation",
       "src": ""
     },
     "banking-services": {
-      "query": "fintech banking finance skyscraper investment",
+      "query": "banking fintech digital finance investment online banking technology",
       "src": ""
     }
   }
