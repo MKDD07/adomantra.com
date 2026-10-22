@@ -1,0 +1,11 @@
+/* Unified scene design; overrides legacy motion without altering content */
+html{scroll-behavior:auto}body{overflow-x:clip;background:#101c2a}
+.scroll-atmosphere{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.scroll-progress{position:fixed;left:0;top:0;width:100%;height:3px;background:#e74b37;transform:scaleX(0);transform-origin:left;z-index:9999;pointer-events:none}
+.motion-panel{position:relative;isolation:isolate;will-change:clip-path;transform-origin:center;backface-visibility:hidden}
+.motion-panel h1,.motion-panel h2{transform-origin:left center}
+.motion-panel .container{position:relative}
+.motion-panel:not(.hero):not(.think-section):not(.journey-section):not(.final-cta){background-color:rgba(255,255,255,.97)}
+.motion-panel.hero,.motion-panel.think-section,.motion-panel.journey-section,.motion-panel.final-cta{overflow:hidden}
+@media(max-width:767px){.motion-panel{will-change:auto}.motion-panel h1,.motion-panel h2{transform-origin:center}.scroll-progress{height:2px}}
+@media(prefers-reduced-motion:reduce){.motion-panel,.motion-panel *{animation:none!important;transition:none!important;transform:none!important;clip-path:none!important}.scroll-progress{display:none}}
