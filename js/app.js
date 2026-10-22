@@ -1,37 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   
-  /* ---------------- SMOOTH SCROLL (LENIS) ---------------- */
-  let lenis;
-  if (typeof Lenis !== 'undefined' && !reduceMotion) {
-    lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    });
-
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.registerPlugin(ScrollTrigger);
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-    }
-  } else {
-    if (window.gsap) gsap.registerPlugin(ScrollTrigger);
-  }
-
   /* ---------------- HEADER ---------------- */
   const header = document.querySelector(".site-header");
   const onScroll = () => {
@@ -464,95 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ease: "none",
           scrollTrigger: {
             trigger: whyUsSection,
-            start: "top 12%",
-            end: () => `+=${Math.max(600, getScrollDistance() * 2)}`,
-            pin: true,
-            pinSpacing: true,
-            scrub: 0.8,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          }
-        });
-      });
-    }
-  }
-
-  /* ---------------- SPLIT MEDIA PINNED FULLSCREEN SHOWCASE (Think Section - >768px only) ---------------- */
-  if (document.querySelector(".think-section") && window.ScrollTrigger) {
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width: 768px)", () => {
-      const thinkTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".think-section",
-          start: "top top",
-          end: "+=120%",
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
-          anticipatePin: 1,
-          onEnter: () => {
-            header.classList.add("is-hidden");
-          },
-          onLeave: () => {
-            header.classList.remove("is-hidden");
-          },
-          onEnterBack: () => {
-            header.classList.add("is-hidden");
-          },
-          onLeaveBack: () => {
-            header.classList.remove("is-hidden");
-          },
-        },
-      });
-
-      thinkTl
-        // Curtains slide left & right to reveal full showcase
-        .fromTo(".think-split-left", { xPercent: 0 }, { xPercent: -102, ease: "power2.inOut" }, 0)
-        .fromTo(".think-split-right", { xPercent: 0 }, { xPercent: 102, ease: "power2.inOut" }, 0)
-        // Card expands from slightly compact to full-scale screen filling presence
-        .fromTo(
-          ".think-cta-card",
-          { scale: 0.9, opacity: 0.3, y: 30 },
-          { scale: 1, opacity: 1, y: 0, ease: "power2.out" },
-          0
-        )
-        // Stagger pillar items into view
-        .fromTo(
-          ".think-pillars-grid .tp-card",
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, stagger: 0.08, ease: "power2.out" },
-          0.2
-        );
-    });
-  }
-
-  /* Final CTA */
-  gsap.from(".final-cta h2, .final-cta .btn-arrow", {
-    opacity: 0, y: 24, duration: 0.9, stagger: 0.15, ease: "power3.out",
-    scrollTrigger: { trigger: ".final-cta", start: "top 80%" },
-  });
-
-  /* ---------------- FOOTER ACCORDION (Mobile < 768px) ---------------- */
-  document.querySelectorAll(".footer-col h4").forEach((heading) => {
-    heading.addEventListener("click", () => {
-      if (window.innerWidth < 768) {
-        const col = heading.closest(".footer-col");
-        col.classList.toggle("is-open");
-      }
-    });
-  });
-
-  /* ---------------- MOBILE SLIDE-UP BOTTOM SHEET MODAL (< 768px) ---------------- */
-  const mobileSheet = document.getElementById("mobileBottomSheet");
-  const openSheetBtn = document.getElementById("openMobileModalBtn");
-  const closeSheetBtn = document.getElementById("closeMobileModalBtn");
-  const sheetBackdrop = document.getElementById("mbsBackdrop");
-
-  function openMobileSheet() {
-    if (!mobileSheet) return;
-    mobileSheet.classList.add("is-active");
-    mobileSheet.setAttribute("aria-hidden", "false");
+            startalse");
     document.body.style.overflow = "hidden";
   }
 
