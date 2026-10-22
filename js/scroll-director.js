@@ -1,33 +1,45 @@
-/* Adomantra / unified scroll director — no Lenis or ScrollSmoother */
-(()=>{const boot=()=>{if(!window.gsap||!window.ScrollTrigger)return;
-gsap.registerPlugin(ScrollTrigger);ScrollTrigger.getAll().forEach(t=>t.kill());
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const sections=[...document.querySelectorAll('main section, body > section, section.hero, section.final-cta')].filter((s,i,a)=>a.indexOf(s)===i);
-const ordered=[...document.querySelectorAll('section.hero, section#why-us, section#services, section#industries, section#approach, section.journey-section, section#clients, section#work, section#inquiry, section.final-cta')];
-const panels=ordered.length?ordered:sections;
-const palette=['#101c2a','#f3f6f8','#eaf0f6','#0e2435','#10253b','#071d30','#f1f5f7','#e7eef3','#f3f5f7','#0d2236'];
-document.documentElement.classList.add('motion-ready');
+/* Adomantra scene director: one ScrollTrigger owner, native scrolling. */
+(()=>{'use strict';
+const init=()=>{
+if(!window.gsap||!window.ScrollTrigger)return;
+const {gsap,ScrollTrigger}=window;gsap.registerPlugin(ScrollTrigger);
+const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const specs=[
+['.hero','hero'],['#why-us','reveal'],['#services','cards'],['#industries','horizontal'],
+['#approach','cinematic'],['.journey-section','journey'],['#clients','logos'],
+['#work','cards'],['#inquiry','reveal'],['.final-cta','final'],['.site-footer','footer']];
+const scenes=specs.map(([selector,type])=>({el:document.querySelector(selector),type})).filter(x=>x.el);
+if(reduced)return;
 const stage=document.createElement('div');stage.className='scroll-atmosphere';stage.setAttribute('aria-hidden','true');document.body.prepend(stage);
-const progress=document.createElement('div');progress.className='scroll-progress';progress.setAttribute('aria-hidden','true');document.body.append(progress);
-const headings=s=>[...s.querySelectorAll('h1,h2,.eyebrow')].filter(el=>!el.closest('[hidden]'));
-const details=s=>[...s.querySelectorAll('p,.service-card,.industry-card,.case-card,.journey-card,.client-logo,.btn')].filter(el=>!el.closest('nav,header,footer'));
-if(reduce){document.documentElement.classList.add('motion-reduced');return;}
-gsap.set(stage,{backgroundColor:palette[0]});
-gsap.to(progress,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.15}});
-panels.forEach((panel,i)=>{
-panel.classList.add('motion-panel');panel.style.setProperty('--panel-index',i);
-const next=panels[i+1],head=headings(panel),content=details(panel).slice(0,16);
-const mode=i%5;
-const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:panel,start:'top bottom',end:'bottom top',scrub:1.1,invalidateOnRefresh:true}});
-tl.fromTo(panel,{clipPath:'inset(5% 0% 5% 0% round 28px)'},{clipPath:'inset(0% 0% 0% 0% round 0px)',duration:.25},0);
-if(head.length)tl.fromTo(head,{yPercent:mode===1?-35:45,opacity:.25,rotateX:mode===2?12:0},{yPercent:0,opacity:1,rotateX:0,stagger:.045,duration:.3},.07);
-if(content.length)tl.fromTo(content,{y:mode===3?-32:40,opacity:.35,scale:mode===4?.95:1},{y:0,opacity:1,scale:1,stagger:.015,duration:.3},.12);
-const media=panel.querySelector('.hero-bg-video-wrap,.think-media,.journey-track,.case-study-swiper,.services-swiper,.industries-swiper,img');
-if(media)tl.fromTo(media,{scale:1.09,xPercent:mode===2?3:0},{scale:1,xPercent:0,duration:.7},0);
-if(next)tl.to(panel,{yPercent:-2,opacity:.94,duration:.2},.8);
-gsap.to(stage,{backgroundColor:palette[i%palette.length],ease:'none',scrollTrigger:{trigger:panel,start:'top 65%',end:'bottom 35%',scrub:1}});
+const bar=document.createElement('div');bar.className='scroll-progress';bar.setAttribute('aria-hidden','true');document.body.append(bar);
+gsap.to(bar,{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.2}});
+const desktop=window.matchMedia('(min-width: 768px)').matches;
+const reveal=(els,trigger,options={})=>{if(!els.length)return;gsap.fromTo(els,{autoAlpha:0,y:options.y??36},{autoAlpha:1,y:0,duration:.85,stagger:options.stagger??.09,ease:'power2.out',clearProps:'transform,opacity,visibility',scrollTrigger:{trigger,start:'top 83%',once:true}})};
+scenes.forEach(({el,type},i)=>{
+const title=[...el.querySelectorAll('h1,h2,.eyebrow')].filter(x=>!x.closest('.modal,[aria-hidden="true"]'));
+const cards=[...el.querySelectorAll('.service-card,.industry-card,.case-card,.swiper-slide,.problem-list li,.clients-grid img,.journey-card')].slice(0,18);
+el.classList.add('motion-scene');
+if(type!=='hero')reveal(title,el,{y:type==='final'?65:30,stagger:.08});
+if(type==='hero'){
+const h=el.querySelector('h1'),video=el.querySelector('.hero-bg-video-wrap');
+if(h)gsap.fromTo(h,{autoAlpha:0,y:55},{autoAlpha:1,y:0,duration:1,ease:'power3.out',clearProps:'all'});
+if(video&&desktop)gsap.to(video,{yPercent:13,scale:1.08,ease:'none',scrollTrigger:{trigger:el,start:'top top',end:'bottom top',scrub:true}});
+}else if(type==='cards'||type==='logos'||type==='horizontal'){
+// Preserve Swiper's own slide transforms and touch handling.
+const safe=cards.filter(x=>!x.closest('.swiper-wrapper'));
+reveal(safe,el,{y:38,stagger:.06});
+}else if(type==='cinematic'&&desktop){
+const layers=el.querySelectorAll('.think-split-left,.think-split-right');
+if(layers.length===2){gsap.fromTo(layers[0],{xPercent:0},{xPercent:-12,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}});
+gsap.fromTo(layers[1],{xPercent:0},{xPercent:12,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}});}
+}else if(type==='journey'){
+const track=el.querySelector('.journey-track');if(track&&desktop)gsap.fromTo(track,{xPercent:4},{xPercent:-4,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}});
+}else if(type==='final'){const card=el.querySelector('.final-cta-card');if(card)reveal([card],el,{y:60});}
+else if(type==='footer'){reveal([...el.querySelectorAll('.footer-col')].slice(0,6),el);}
+const tint=i%2===0?'#101c2a':'#243448';
+gsap.to(stage,{backgroundColor:tint,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'top 30%',scrub:1}});
 });
-const hero=document.querySelector('.hero');if(hero){const h=hero.querySelector('h1');if(h)gsap.fromTo(h,{y:65,opacity:0},{y:0,opacity:1,duration:1,ease:'power3.out',delay:.12});}
-const footer=document.querySelector('.site-footer');if(footer){gsap.fromTo(footer,{y:55},{y:0,ease:'none',scrollTrigger:{trigger:footer,start:'top bottom',end:'top 70%',scrub:1}});}
 window.addEventListener('load',()=>ScrollTrigger.refresh(),{once:true});
-};document.readyState==='loading'?document.addEventListener('DOMContentLoaded',boot):boot();})();
+};
+document.readyState==='loading'?document.addEventListener('DOMContentLoaded',init):init();
+})();
