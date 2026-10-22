@@ -370,70 +370,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (results[0]) el.style.backgroundImage = `url('${results[0].url}')`;
   });
 
-  if (reduceMotion || !window.gsap) return;
-
-
-
-  /* Metrics bar with Odometer Count Animation */
-  if (document.querySelector(".metrics-bar")) {
-    let metricsAnimated = false;
-    ScrollTrigger.create({
-      trigger: ".metrics-bar",
-      start: "top 85%",
-      onEnter: () => {
-        if (metricsAnimated) return;
-        metricsAnimated = true;
-
-        document.querySelectorAll(".odometer-counter").forEach((counter) => {
-          const target = parseFloat(counter.getAttribute("data-target")) || 0;
-          const prefix = counter.getAttribute("data-prefix") || "";
-          const suffix = counter.getAttribute("data-suffix") || "";
-          const decimals = parseInt(counter.getAttribute("data-decimals"), 10) || 0;
-          const obj = { val: 0 };
-
-          gsap.to(obj, {
-            val: target,
-            duration: 2,
-            ease: "power3.out",
-            onUpdate: () => {
-              counter.textContent = prefix + obj.val.toFixed(decimals) + suffix;
-            },
-          });
-        });
-      },
+  /* ---------------- FOOTER ACCORDION (Mobile < 768px) ---------------- */
+  document.querySelectorAll(".footer-col h4").forEach((heading) => {
+    heading.addEventListener("click", () => {
+      if (window.innerWidth < 768) {
+        const col = heading.closest(".footer-col");
+        col.classList.toggle("is-open");
+      }
     });
+  });
 
-    gsap.from(".metrics-row .m-item", {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      stagger: 0.08,
-      ease: "power2.out",
-      scrollTrigger: { trigger: ".metrics-bar", start: "top 88%" },
-    });
-  }
+  /* ---------------- MOBILE SLIDE-UP BOTTOM SHEET MODAL (< 768px) ---------------- */
+  const mobileSheet = document.getElementById("mobileBottomSheet");
+  const openSheetBtn = document.getElementById("openMobileModalBtn");
+  const closeSheetBtn = document.getElementById("closeMobileModalBtn");
+  const sheetBackdrop = document.getElementById("mbsBackdrop");
 
-  /* ---------------- WHY US - STICKY SCROLLING PROBLEM LIST ---------------- */
-  if (document.querySelector("#why-us") && window.ScrollTrigger) {
-    const whyUsSection = document.querySelector("#why-us");
-    const problemList = document.querySelector(".problem-list");
-    const problemWrap = document.querySelector(".problem-list-wrap");
-    
-    if (problemList && problemWrap) {
-      const mm = gsap.matchMedia();
-      
-      mm.add("(min-width: 768px)", () => {
-        // Calculate the total distance to scroll so all pills move up into view
-        const getScrollDistance = () => {
-          return problemList.scrollHeight - problemWrap.clientHeight + 16;
-        };
-
-        gsap.to(problemList, {
-          y: () => -getScrollDistance(),
-          ease: "none",
-          scrollTrigger: {
-            trigger: whyUsSection,
-            startalse");
+  function openMobileSheet() {
+    if (!mobileSheet) return;
+    mobileSheet.classList.add("is-active");
+    mobileSheet.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
   }
 
