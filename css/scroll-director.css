@@ -1,0 +1,9 @@
+/* Non-destructive visual layer: preserve existing layout and carousel mechanics. */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+.scroll-atmosphere{position:fixed;inset:0;z-index:-1;pointer-events:none;background:#101c2a}
+.scroll-progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--color-primary,#ed4935);transform:scaleX(0);transform-origin:left;z-index:9999;pointer-events:none}
+.motion-scene{position:relative}
+.motion-scene .swiper-wrapper,.motion-scene .swiper-slide{will-change:auto}
+@media(max-width:767px){.scroll-progress{height:2px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.scroll-progress{display:none}}
